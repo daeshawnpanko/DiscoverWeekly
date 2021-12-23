@@ -1,16 +1,25 @@
-# This is a sample Python script.
+import json
+import requests
+from secrets import spotify_token, spotify_user_id, discoverWeeklyID
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+class savetoPlaylist:
+    def __init__(self):
+        self.userId = spotify_user_id
+        self.spotifyToken = spotify_token
+        self.discoverWeeklyID = discoverWeeklyID
 
+    def getSongs():
+        # loop through discover weekyly tracks and add to list
+        # playlist uri = spotify:playlist:37i9dQZEVXcS5kDYDE5AFV
+        query = "https://api.spotify.com/v1/playlists/{}/tracks".format(discoverWeeklyID)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+        response = requests.get(query,headers={
+            "Contenty-Type": "application/json",
+            "Authorization": "Bearer {}".format(spotify_token)
+        })
 
+        response_json = response.json
+        print(response)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+run = savetoPlaylist()
+run.getSongs
