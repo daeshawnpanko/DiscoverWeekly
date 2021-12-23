@@ -1,5 +1,6 @@
 spotify_token = "BQD55TAQ0OgzrJ2KS7cK6VCNbaO1uoLqwQTMPJjjWy2VZdKpMkbHoYRUD1VFgLk6W17tQIQizBukvzmsVZ_Je_LJrsYTdL0716EB5Zlp6n_w5oG_K8jpl1wi7lELIxLroTkXDlUNM1HMJ-GkmRzy-YFH6vJWX0KDvoD6TIDNmBpL5209Iz03HwH6P0y8T-FMpBTBBTPSJ2Y"
 spotify_user_id = "d_panko"
 discoverWeeklyID = "37i9dQZEVXcS5kDYDE5AFV"
+newPlaylistID = "0aWA39Yaz7eJHFtCSzcXFE"
 
 
