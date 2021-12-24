@@ -25,17 +25,17 @@ class savetoPlaylist:
         })
 
         response_json = response.json()
-        print(response)
+        #print(response)
 
         for x in response_json["items"]:
             self.basedSongs += (x["track"]["uri"] + ",")
         #remove the extra comma at the end of the string
         self.basedSongs = self.basedSongs[:-1]
-        print(self.basedSongs)
-       # self.putSongsOnPLaylist()
+        #print(self.basedSongs)
+        self.putSongsOnPLaylist()
 
     def getSongsToDelete(self):
-        print("Step 2: Getting Songs from Last week's discover weekly")
+        print("Step 2: Getting Songs from Last week's discover weekly...")
         # loop through discover weekyly tracks and add to list
         query = "https://api.spotify.com/v1/playlists/{}/tracks".format(newPlaylistID)
 
@@ -45,17 +45,14 @@ class savetoPlaylist:
         })
 
         response_json = response.json()
-        #print(response)
+
 
         for x in response_json["items"]:
             #self.songsToDelete += (x["track"]["uri"] + ",")
-            dict = {"uri":x["track"]["uri"]}
+
+            dict = {"uri": (x["track"]["uri"])}
             self.songsToDelete.append(dict)
-        #remove the extra comma at the end of the string
-        #self.songsToDelete = self.songsToDelete[:-1]
-        #print(self.songsToDelete)
-        self.deleteDict = {"tracks":self.songsToDelete}
-        print(self.deleteDict)
+
         self.deleteLastWeek()
 
 
@@ -67,27 +64,33 @@ class savetoPlaylist:
             "Content-Type": "application/json",
             "Authorization": "Bearer {}".format(self.spotifyToken)
         })
-        print(response.json())
+        #print(response.json())
 
 
     def callRefresh(self):
-        print("Step 1: Refreshing Spotify token")
+        print("Step 1: Refreshing Spotify token...")
         refreshCall = Refresh()
         self.spotifyToken = refreshCall.refresh()
         self.getSongsToDelete()
 
     def deleteLastWeek(self):
-        print("Step 3: Deleting song from last week")
-        test = '{"tracks":[{"uri":"spotify:track:06u5LrUpbosQlQ1QJFhPpG"}]}'
-        print(test)
+        print("Step 3: Deleting song from last week...")
+
+
+        self.deleteDict = {"tracks":self.songsToDelete}
+        finalDump = json.dumps(self.deleteDict)
+
+
         query = "https://api.spotify.com/v1/playlists/{}/tracks".format(self.newPlaylistID)
         response = requests.delete(query, headers={
             "Content-Type": "application/json",
             "Authorization": "Bearer {}".format(self.spotifyToken)},
-            data=test)
+            data=finalDump)
         response_json = response.json()
-        print(response_json)
+
+        self.getSongs()
 
 
 run = savetoPlaylist()
 run.callRefresh()
+print("Successfully created new discover weekly playlist")
