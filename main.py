@@ -93,7 +93,7 @@ class savetoPlaylist:
 # 2. getSongsToDelete -> Get request for the songs that are already on the playlist
 # 3. deleteLastWeek -> Delete request for the songs that are already on the playlist
 # 4. getSongs -> get the songs from the spotify created discover weekly playlist
-# 5. putSongsOnPlaylist -> add the songs that were fetched in getSongs to our discoverWeeklyPlaylist
+# 5. putSongsOnPlaylist -> add the songs that were fetched in getSongs to our discover weekly playlist
 
 run = savetoPlaylist()
 run.callRefresh()
